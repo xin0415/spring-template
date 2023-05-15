@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -48,14 +49,14 @@ public class ManagementController {
             return new Response(400,"name field cannot contain the number");
         }
         if(submit.getEmail()!=null||submit.getEmail()!=""){
-//            String emailRegex="^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$";
-            Pattern emailRegex=Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$");
-            System.out.println(emailRegex.matcher(submit.getEmail()).matches());
+            if(!submit.getEmail().matches("^(.+)@(.+)$")){
+                return new Response(400,"please put right email format");
+            }
         }
         if(submit.getPhoneNumber()!=null||submit.getPhoneNumber()!=""){
-            String phoneRegex="^\\+(?:[0-9] ?){6,14}[0-9]$";
-
-            System.out.println(Pattern.matches(phoneRegex,submit.getPhoneNumber()));
+            if(!submit.getPhoneNumber().matches("^\\d{10}$")){
+                return new Response(400,"please put right phone format XXXXXXXXXX");
+            }
         }
         System.out.println(submit.toString());
         return new Response(200,"add user");

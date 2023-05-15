@@ -1,3 +1,6 @@
+# Frontend URL
+frontend:https://github.com/xin0415/client.git
+
 # Overview
 This template provides a very basic Spring Boot application. This is intended to provide a bare minimum set of files that is executable, and can be compiled into a functional docker image.
 
